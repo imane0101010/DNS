@@ -78,20 +78,40 @@ dig ns1.me.local
 dig -x 192.168.1.10
 ```
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6947d3eb1706c5934ae3a6ae793950e23bc2ef6d/DNS/DNS_CONFIGURATION/dns_ans1.png"></p> 
+
 ## Configuration Master and Slave
+
 ### Master
-First, we need to edit the /etc/named.conf.local file using
+
+#### Editing zones
+
+
+
 ```sh
 sudo nano /etc/bind/named.conf.local
 ```
-#### Forward Zone
+#### Forward and Reverse Zone
 
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/e3e86937d7119bd2b9c1f176a847a153aa1a406c/DNS/MASTER_&_SLAVE/MASTER/DNS_MASTER3.png"></p>
+
+
+#### Editing Lookup files
+
+#### Forward Zone
+```sh
+sudo nano /etc/bind/forward.me.local.db
+```
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6947d3eb1706c5934ae3a6ae793950e23bc2ef6d/DNS/MASTER_&_SLAVE/MASTER/DNS_MASTER.png"></p>
 
 #### Reverse Zone
 
+```sh
+sudo nano /etc/bind/reverse.me.local.db
+```
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6947d3eb1706c5934ae3a6ae793950e23bc2ef6d/DNS/MASTER_&_SLAVE/MASTER/DNS_MASTER1.png"></p>
+
 #### Restart Bind9
+
 ```sh
 sudo systemctl restart bind9
 ```
