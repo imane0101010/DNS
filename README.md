@@ -137,13 +137,18 @@ sudo ls -l /var/cache/bind
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE2.png"></p>
 
 Then let´s add the DNS slave and master ip address in /etc/resolv.conf
-<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE2.png"></p>
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE.png"></p>
 Now,let´s check the configuration using dig command
 
 ```sh
 dig ns2.me.local @192.168.1.20
 ```
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE3.png"></p>
+
+```sh
+dig www.me.local @192.168.1.20
+```
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE4.png"></p>
 
 ## DDNS
 First of all 
