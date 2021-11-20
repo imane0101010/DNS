@@ -159,4 +159,5 @@ sudo rndc-confgen
 ```
 #### Creating the file ddns.key
 
-<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE4.png"></p>
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6d85b06dfa7c7076f7a38f7336e6eb4b5af3d5d4/DNS/DDNS/DDNS_key.png"></p>
+
