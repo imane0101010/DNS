@@ -1,6 +1,6 @@
 # DNS
 ## Configuration DHCP server
-### Prerequisities
+### Prerequisites
 make sure the DNS server has a static ip
 update the repository index
 ### Installation DNS Server
