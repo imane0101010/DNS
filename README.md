@@ -151,4 +151,12 @@ dig www.me.local @192.168.1.20
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE4.png"></p>
 
 ## DDNS
-First of all 
+#### Generating key
+First of all let us generate the key for verification that will be used to secure the exchange of information between DHCP and DNS server.
+
+```sh
+sudo rndc-confgen
+```
+#### Creating the file ddns.key
+
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE4.png"></p>
