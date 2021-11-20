@@ -175,7 +175,47 @@ chmod 640 /etc/bind/ddns.key
 chmod 640 /etc/dhcp/ddns.key
 ```
 #### DNS Server configuration
+
  ##### Update of zones
+ 
  The DNS server must be configured to allow updates for each zone that the DHCP server will be updating. We will need a key declaration for our key, and two zone declarations - one for the forward lookup zone and one for the reverse lookup zone. To do so modify the file /etc/bind/named.conf.local as follows: 
  
  <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/d934561b46ae864b043de3f87a61afa34638d963/DNS/DDNS/DDNS2.png"></p>
+ 
+ ##### Creating the zone files
+ 
+ ###### Forward Zone
+ 
+  <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS4.png"></p>
+  
+ ###### Reverse Zone
+ 
+   <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS5.png"></p>
+   
+ ##### Creating symbolic links
+ 
+ Finally we need to create links from /var/cache/bind to the actual zone files in /etc/bind. This is because /etc/bind is not writeable for bind, but /var/cache/bind is.
+ 
+```sh
+cd /var/cache/bind
+ln -s /etc/bind/db.me.org .
+ln -s /etc/bind/db.192.168.1 .
+```
+##### DHCP Server configuration
+
+Here is the complete dhcpd.conf file  with a basic configuration for the subnet 192.168.1.0/24: 
+  <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS6.png"></p>
+  
+##### Restarting the servers
+
+```sh
+/etc/init.d/isc-dhcp-server restart
+/etc/init.d/bind9 restart
+```
+##### Testing the servers
+
+Now let´s test the DDNS in a client machine using nslookup command.
+ <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS.png"></p>
+  
+
+   
