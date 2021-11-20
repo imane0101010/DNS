@@ -158,6 +158,24 @@ First of all let us generate the key for verification that will be used to secur
 sudo rndc-confgen
 ```
 #### Creating the file ddns.key
+Let us create the file ddns.key as follows:
 
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6d85b06dfa7c7076f7a38f7336e6eb4b5af3d5d4/DNS/DDNS/DDNS_key.png"></p>
 
+#### Copying the key into the correct locations
+
+We should copy this file to /etc/bind/ and /etc/dhcp and adjust the file permissions as follows: 
+
+```sh
+cp ddns.key /etc/bind/
+cp ddns.key /etc/dhcp/
+chown root:bind /etc/bind/ddns.key
+chown root:root /etc/dhcp/ddns.key
+chmod 640 /etc/bind/ddns.key
+chmod 640 /etc/dhcp/ddns.key
+```
+#### DNS Server configuration
+ ##### Update of zones
+ The DNS server must be configured to allow updates for each zone that the DHCP server will be updating. We will need a key declaration for our key, and two zone declarations - one for the forward lookup zone and one for the reverse lookup zone. To do so modify the file /etc/bind/named.conf.local as follows: 
+ 
+ <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/d934561b46ae864b043de3f87a61afa34638d963/DNS/DDNS/DDNS2.png"></p>
