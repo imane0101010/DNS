@@ -110,8 +110,34 @@ sudo nano /etc/bind/reverse.me.local.db
 ```
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6947d3eb1706c5934ae3a6ae793950e23bc2ef6d/DNS/MASTER_&_SLAVE/MASTER/DNS_MASTER1.png"></p>
 
-#### Restart Bind9
+### Slave
+#### Prerequisites
+
+Static IP address
+Bind9 installed
+
+#### Editing Zones
+
+##### Forward and Reverse Zones
+
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE1.png"></p>
+
+##### Restart Bind9
 
 ```sh
 sudo systemctl restart bind9
 ```
+##### Verification
+
+Let us see if the forward and reverse zone file is already in /var/cache/bind
+
+```sh
+sudo ls -l /var/cache/bind
+```
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE2.png"></p>
+
+Then let´s add the DNS slave and master ip address in /etc/resolv.conf
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE2.png"></p>
+Now,let´s check the configuration using dig command
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE3.png"></p>
+<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE4.png"></p>
