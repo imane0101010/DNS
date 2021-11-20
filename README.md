@@ -145,3 +145,5 @@ dig ns2.me.local @192.168.1.20
 ```
 <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE3.png"></p>
 
+## DDNS
+First of all 
