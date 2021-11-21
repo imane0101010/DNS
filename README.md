@@ -105,8 +105,8 @@ Note that we added the `allow-transfer` and `also-notify` parameters.
 - `allow-transfer` allows zones transfer from the master to a slave server.  
 - `also-notify` notifies a slave server when there has a change in zones at the master server.  
 #### Editing the lookup files
-- `192.168.0.10` : the IP adress of the master server `ns1.me.local`  
-- `192.168.0.20` : the IP adress of the slave server `ns2.me.local`  
+- `192.168.1.10` : the IP adress of the master server `ns1.me.local`  
+- `192.168.1.20` : the IP adress of the slave server `ns2.me.local`  
 
 ##### Forward zone
 ```sh
@@ -122,7 +122,7 @@ sudo nano /etc/bind/reverse.me.local.db
 
 ### Slave server
 #### Prerequisites
-- Static IP address : `192.168.0.20`
+- Static IP address : `192.168.1.20`
 - Bind9 installed  
 
 #### Editing the zones
