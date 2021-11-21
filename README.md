@@ -61,7 +61,7 @@ we will use two commands :
 ```sh
 sudo named-checkconf  
 sudo named-checkzone me.local /etc/bind/forward.me.local.db
-sudo named-checkzone 0.168.192.in-addr.arpa /etc/bind/reverse.me.local.db
+sudo named-checkzone 1.168.192.in-addr.arpa /etc/bind/reverse.me.local.db
 ```  
 ### Restarting bind
 ```sh
