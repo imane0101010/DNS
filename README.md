@@ -216,5 +216,5 @@ Here is the complete `dhcpd.conf` file with a basic configuration for the subnet
 /etc/init.d/bind9 restart
 ```  
 ## Testing the servers
-Now let's test the DDNS in a client machine using `nslookup` command, the result is shown bellow.
+Now let's test the DDNS in a client machine using `nslookup` command, the result is shown below.
 <p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS.png"></p>
