@@ -1,17 +1,24 @@
 <h1 align="center">Domain Name System</h1>  
 
 # Index
-- ## DNS configuration
-    * Definition, Role and How it works
-    * DNS servers
-    * Server configuration
-    * Client configuration
-    * Primary and secondary DNS servers configuration
+- ## [DNS Overview](https://github.com/imane0101010/DNS#dns-overview-1)
+    * [Definition, Role and How it works]()
+    * [DNS servers]()
+- ## [DNS configuration](https://github.com/imane0101010/DNS#dns-configuration-1)
+    * [Server configuration](https://github.com/imane0101010/DNS#configuring-the-dns-server)
+    * [Client configuration](https://github.com/imane0101010/DNS#configuration-the-dns-client)
+    * [Primary and secondary DNS servers configuration](https://github.com/imane0101010/DNS#configuring-master-and-slave-servers)
 - ## DDNS configuration
     * DDNS server configuration
     * Client configuration
     * Testing 
   
+# DNS Overview
+## Definition, Role and How DNS works
+The Internet—or any network for that matter—works by allocating a locally or globally unique IP address to every endpoint (host, server, router, interface, etc.). But without the ability to assign some corresponding name to each resource, every time we want to access a resource available on the network, it would be necessary to know its physical network address. With millions of hosts and resources, it’s an impossible task.  
+To solve this problem, the concept of name servers was created in the mid-1970s to enable certain attributes (or properties) of a named resource, in this case, the IP address of www.example.com, to be maintained in a well-known location—the basic idea being that people find it much easier to remember the name of something, especially when that name is reasonably descriptive of function, content, or purpose, rather than a numeric address.  
+
+
 # DNS configuration
 
 ## Prerequisites
