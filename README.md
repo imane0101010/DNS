@@ -3,7 +3,7 @@
 # Index
 - #### [DNS Overview](https://github.com/imane0101010/DNS#dns-overview-1)
     * [Definition, Role and How it works](https://github.com/imane0101010/DNS#definition-role-and-how-dns-works)
-    * [DNS servers]()
+    * [DNS servers](https://github.com/imane0101010/DNS#dns-servers)
 - #### [DNS configuration](https://github.com/imane0101010/DNS#dns-configuration-1)
     * [Server configuration](https://github.com/imane0101010/DNS#configuring-the-dns-server)
     * [Client configuration](https://github.com/imane0101010/DNS#configuring-the-dns-client)
