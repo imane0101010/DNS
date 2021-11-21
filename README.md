@@ -1,29 +1,41 @@
 <h1 align="center">Domain Name System</h1>  
 
 # Index
-- ## [DNS Overview](https://github.com/imane0101010/DNS#dns-overview-1)
-    * [Definition, Role and How it works]()
+- #### [DNS Overview](https://github.com/imane0101010/DNS#dns-overview-1)
+    * [Definition, Role and How it works](https://github.com/imane0101010/DNS#definition-role-and-how-dns-works)
     * [DNS servers]()
-- ## [DNS configuration](https://github.com/imane0101010/DNS#dns-configuration-1)
+- #### [DNS configuration](https://github.com/imane0101010/DNS#dns-configuration-1)
     * [Server configuration](https://github.com/imane0101010/DNS#configuring-the-dns-server)
-    * [Client configuration](https://github.com/imane0101010/DNS#configuration-the-dns-client)
+    * [Client configuration](https://github.com/imane0101010/DNS#configuring-the-dns-client)
     * [Primary and secondary DNS servers configuration](https://github.com/imane0101010/DNS#configuring-master-and-slave-servers)
-- ## DDNS configuration
-    * DDNS server configuration
-    * Client configuration
-    * Testing 
+- #### [DDNS configuration](https://github.com/imane0101010/DNS#ddns)
+    * [DNS server configuration](https://github.com/imane0101010/DNS#dns-server-configuration)
+    * [DHCP configuration](https://github.com/imane0101010/DNS#dhcp-server-configuration)
+    * [Testing](https://github.com/imane0101010/DNS#testing-the-servers)  
   
 # DNS Overview
 ## Definition, Role and How DNS works
-The Internet—or any network for that matter—works by allocating a locally or globally unique IP address to every endpoint (host, server, router, interface, etc.). But without the ability to assign some corresponding name to each resource, every time we want to access a resource available on the network, it would be necessary to know its physical network address. With millions of hosts and resources, it’s an impossible task.  
-To solve this problem, the concept of name servers was created in the mid-1970s to enable certain attributes (or properties) of a named resource, in this case, the IP address of www.example.com, to be maintained in a well-known location—the basic idea being that people find it much easier to remember the name of something, especially when that name is reasonably descriptive of function, content, or purpose, rather than a numeric address.  
+The Internet - or any network for that matter - works by allocating a locally or globally unique IP address to every endpoint (host, server, router, interface, etc.). But without the ability to assign some corresponding name to each resource, every time we want to access a resource available on the network, it would be necessary to know its physical network address. With millions of hosts and resources, it’s an impossible task.  
+To solve this problem, the concept of name servers was created in the mid-1970s to enable certain attributes (or properties) of a named resource, in this case, the IP address, to be maintained in a well-known location. The basic idea being that people find it much easier to remember the name of something, especially when that name is reasonably descriptive of function, content, or purpose, rather than a numeric address.  
+The key concepts of the Internet’s Domain Name System are:
+- **Authority** : being responsible for a particular node in the domain name hierarchy.  
+- **delegation** : the process by which the authority at a higher level in the domain name hierarchy may transfer authority to lower levels.  
+ 
+The iteration process of a translation of the name `abc.company.com` to an IP address is shown in the following figure below:  
+<p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/48b61bfa9d1db9f3b7dfeec572b67c6d1b59436b/DNS/Additional-files/translation-domain-name.PNG"></p>
 
+## DNS servers
+Name servers differ according to the way in which they save data: 
+- **Primary name server/primary master** is the main data source for the zone. It is the authoritative server for the zone. This server acquires data about its zone from databases saved on a local disk.
+- **Master name server** is an authoritative server for the zone. It is always published as an authoritative server for the domain in NS records. The master sever is a source of data of a zone for the subordinate servers (slave/secondary servers). There can be several master servers.
+- **Secondary name server/slave name server** acquires data about the zone by copying the data from the primary name server (respectively from the master server) at regular time intervals. It makes no sense to edit these databases on the secondary name servers, although they are saved on the local server disk because they will be rewritten during further copying. This type of name server is also an authority for its zones.
+- **Root name server** is an authoritative name server for the root domain (for the dot). Each root name server is a primary server, which differentiates it from other name servers.
+- **Slave name server** transmits questions for a translation to other name servers, it does not perform any iteration itself.  
 
 # DNS configuration
-
 ## Prerequisites
-make sure the DNS server has a static ip  
-update the repository index  
+* Make sure the DNS server has a static ip  
+* Update the repository index  
 
 ## Installing Bind DNS Server
 We will be using Bind DNS server, this collection of tools can be installed using the following command:  
@@ -73,7 +85,7 @@ sudo systemctl status bind9
 ```
 <p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/6947d3eb1706c5934ae3a6ae793950e23bc2ef6d/DNS/DNS_CONFIGURATION/Screenshot%20from%202021-11-17%2009-01-37.png"></p>  
 
-## Configuration the DNS client
+## Configuring the DNS client
 In the client machine, add the new DNS Server ip adress in the `/etc/resolv.conf` file:  
 ```sh
 sudo nano /etc/resolv.conf
@@ -93,7 +105,7 @@ Forward lookup                   |  Reverse lookup
 
 ## Configuring Master and Slave servers
 ### Master server
-We need to configure BIND on the master server (ns1.me.local) to enable zone transfer to our secondary server (ns2.me.local).
+We need to configure BIND on the master server (`ns1.me.local`) to enable zone transfer to our secondary server (`ns2.me.local`).
 #### Editing the zones
 Edit the `/etc/named.conf.local` file in `ns1.me.local`.
 ```sh
@@ -155,22 +167,20 @@ dig www.me.local @192.168.1.20
 ```
 <p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/5fc76d4ee53b88b3e6e17d48108ec796e0c7bfdd/DNS/MASTER_&_SLAVE/SLAVE/DNS_SLAVE4.png"></p>
 
-## DDNS
-#### Generating key
-First of all let us generate the key for verification that will be used to secure the exchange of information between DHCP and DNS server.
+# DDNS
+Dynamic DNS keeps DNS records (zone files) automatically up to date when an IP address changes. It is used in large networks that host internal services, and use their own internal DNS and DHCP servers as well as small companies and individuals when they want to publish a service on the Internet, and that service is hosted within an internal or home network, knowing that home networks typically use a *NAT* router to connect to the internet which means that devices located on the internal network aren’t accessible from the Internet.
 
+## Generating the key
+First of all let us generate the key for verification that will be used to secure the exchange of information between DHCP and DNS server.  
 ```sh
 sudo rndc-confgen
-```
-#### Creating the file ddns.key
-Let us create the file ddns.key as follows:
+```  
+## Creating the file `ddns.key`  
+Let us create the file ddns.key as follows:  
+<p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/6d85b06dfa7c7076f7a38f7336e6eb4b5af3d5d4/DNS/DDNS/DDNS_key.png"></p>
 
-<p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6d85b06dfa7c7076f7a38f7336e6eb4b5af3d5d4/DNS/DDNS/DDNS_key.png"></p>
-
-#### Copying the key into the correct locations
-
-We should copy this file to /etc/bind/ and /etc/dhcp and adjust the file permissions as follows: 
-
+## Copying the key into the correct locations
+We should copy this file to `/etc/bind/` and `/etc/dhcp` and adjust the file permissions as follows: 
 ```sh
 cp ddns.key /etc/bind/
 cp ddns.key /etc/dhcp/
@@ -179,46 +189,32 @@ chown root:root /etc/dhcp/ddns.key
 chmod 640 /etc/bind/ddns.key
 chmod 640 /etc/dhcp/ddns.key
 ```
-#### DNS Server configuration
+## DNS Server configuration
+### Updating the zones
+The DNS server must be configured to allow updates for each zone that the DHCP server will be updating. We will need a key declaration for our key, and two zone declarations - one for the forward lookup zone and the other for the reverse lookup zone -. To do so modify the file `/etc/bind/named.conf.local` as follows:  
+<p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/d934561b46ae864b043de3f87a61afa34638d963/DNS/DDNS/DDNS2.png"></p>
+ 
+### Creating the zone files
+*Forward zone*                 |  *Reverse zone*
+:-------------------------:|:-------------------------:
+![forward](https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS4.png)  |  ![Reverse](https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS5.png)   
 
- ##### Update of zones
- 
- The DNS server must be configured to allow updates for each zone that the DHCP server will be updating. We will need a key declaration for our key, and two zone declarations - one for the forward lookup zone and one for the reverse lookup zone. To do so modify the file /etc/bind/named.conf.local as follows: 
- 
- <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/d934561b46ae864b043de3f87a61afa34638d963/DNS/DDNS/DDNS2.png"></p>
- 
- ##### Creating the zone files
- 
- ###### Forward Zone
- 
-  <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS4.png"></p>
-  
- ###### Reverse Zone
- 
-   <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS5.png"></p>
-   
- ##### Creating symbolic links
- 
- Finally we need to create links from /var/cache/bind to the actual zone files in /etc/bind. This is because /etc/bind is not writeable for bind, but /var/cache/bind is.
- 
+### Creating symbolic links
+Finally we need to create links from `/var/cache/bind` to the actual zone files in `/etc/bind`. This is because `/etc/bind` is not writeable for bind, but `/var/cache/bind` is.
 ```sh
 cd /var/cache/bind
 ln -s /etc/bind/db.me.org .
 ln -s /etc/bind/db.192.168.1 .
 ```
-##### DHCP Server configuration
-
-Here is the complete dhcpd.conf file  with a basic configuration for the subnet 192.168.1.0/24: 
-  <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS6.png"></p>
+## DHCP Server configuration
+Here is the complete `dhcpd.conf` file with a basic configuration for the subnet `192.168.1.0/24`: 
+<p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS6.png"></p>
   
-##### Restarting the servers
-
+### Restarting the servers
 ```sh
 /etc/init.d/isc-dhcp-server restart
 /etc/init.d/bind9 restart
-```
-##### Testing the servers
-
-Now let´s test the DDNS in a client machine using nslookup command.
- <p align="center"><img width="50%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS.png"></p>
-  
+```  
+## Testing the servers
+Now let's test the DDNS in a client machine using `nslookup` command, the result is shown bellow.
+<p align="center"><img width="60%" src="https://github.com/imane0101010/DNS/blob/6503de3aac5cae9ab263cf80cacce01754c93204/DNS/DDNS/DDNS.png"></p>
